@@ -1,14 +1,31 @@
 from ctypes import *
-import json
+import json,platform,os,sys
 
-import os,sys
-sharedlibpath=os.path.join(os.getcwd(),"docliteshared.so")
-for path in sys.path:
+class NoLibException(Exception):
+    pass
+
+sharedlibpath = os.path.join(
+    os.getcwd(),
+    "{}/docliteshared.so".format(
+        platform.system().casefold()
+    )
+)
+
+paths=[sharedlibpath]+list(
+    map(
+        lambda x:os.path.join(x,"pydoclite/docliteshared.so"),
+        sys.path
+    )
+)
+
+for path in paths:
     try:
-        if os.stat(sharedlibpath):
+        if os.stat(path):
             break
     except FileNotFoundError:
-        sharedlibpath = os.path.join(path,"pydoclite/docliteshared.so")
+        sharedlibpath = path
+else:
+    raise NoLibException("shared Lib not found")
 
 
 deleted=b'deleted'

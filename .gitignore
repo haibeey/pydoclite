@@ -1,0 +1,6 @@
+.eggs
+*__pycache__
+.pytest_cache
+pydoclite.egg*
+dist
+build

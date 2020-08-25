@@ -8,6 +8,10 @@ elif system()=="Darwin":
     libpath = "darwin/docliteshared.so"
 else:
     raise ValueError("os platform not supported yet")
+
+basedir = os.path.abspath(os.path.dirname(__file__))
+with open(os.path.join(basedir, 'README.md'), encoding='utf-8') as f:
+    long_description = f.read()
 setup(
     name="pydoclite",
     packages=find_packages(),
@@ -21,4 +25,6 @@ setup(
     package_data={"pydoclite": [libpath]},
     include_package_data=True,
     test_suite="tests",
+    long_description=long_description,
+    long_description_content_type='text/markdown'
 )

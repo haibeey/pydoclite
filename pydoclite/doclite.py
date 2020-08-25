@@ -6,14 +6,18 @@ class NoLibException(Exception):
 
 sharedlibpath = os.path.join(
     os.getcwd(),
-    "{}/docliteshared.so".format(
+    "pydoclite/pydoclite{}/docliteshared.so".format(
         platform.system().casefold()
     )
 )
-
 paths=[sharedlibpath]+list(
     map(
-        lambda x:os.path.join(x,"pydoclite/docliteshared.so"),
+        lambda x:os.path.join(
+            x,
+            "pydoclite/pydoclite{}/docliteshared.so".format(
+                platform.system().casefold()
+            )
+        ),
         sys.path
     )
 )
@@ -21,12 +25,12 @@ paths=[sharedlibpath]+list(
 for path in paths:
     try:
         if os.stat(path):
+            sharedlibpath = path
             break
     except FileNotFoundError:
-        sharedlibpath = path
+        continue
 else:
     raise NoLibException("shared Lib not found")
-
 
 deleted=b'deleted'
 

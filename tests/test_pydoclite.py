@@ -1,4 +1,4 @@
-from pydoclite import doclite
+from pydoclite import Doclite
 import glob
 import os
 
@@ -13,7 +13,7 @@ def test_basic():
 
     removeFiles()
 
-    d = doclite.Doclite.Connect(b"doclitetest.db")
+    d = Doclite.Connect(b"doclitetest.db")
     baseCollection = d.Base()
 
     for i in range(10): 

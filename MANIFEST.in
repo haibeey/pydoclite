@@ -1,0 +1,3 @@
+include LICENSE
+recursive-include ./pydoclite/pydoclitedarwin  *.so
+recursive-include ./pydoclite/pydoclitelinux  *.so
